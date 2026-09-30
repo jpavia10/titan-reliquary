@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="apple-mobile-web-app-title" content="Titan" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png" />
+  <meta name="theme-color" content="#12100e" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Titan Reliquary</title>
+  <link rel="stylesheet" href="styles.css?v=ce9ece4795560e9e" />
+  <script>
+    /* Theme layer: ?theme=bridge|orbit|terminal previews (not saved); otherwise the device's saved pick; default = classic. */
+    (function () {
+      var T = { bridge: "family=Oxanium:wght@400;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;600",
+                orbit: "family=Orbitron:wght@500;600;700;800&family=Exo+2:wght@400;500;600;700&family=JetBrains+Mono:wght@400",
+                terminal: "family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600" };
+      var DEFAULT = null; /* null = classic. To make a theme the default, set "bridge" | "orbit" | "terminal". */
+      var t = null, q = null, s = null;
+      try { q = new URLSearchParams(location.search).get("theme"); } catch (e) {}
+      if (q) { if (T[q]) t = q; }
+      else { try { s = localStorage.getItem("tr_theme_v1"); } catch (e) {} t = s === "classic" ? null : T[s] ? s : DEFAULT; }
+      window.TITAN_THEME = t;
+      if (!t) return;
+      document.documentElement.setAttribute("data-theme", t);
+      document.write('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
+        + '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?' + T[t] + '&display=swap">'
+        + '<link rel="stylesheet" href="themes/' + t + '.css?v=ce9ece4795560e9e">');
+    })();
+  </script>
+</head>
+<body>
+  <div id="app">
+    <header class="top">
+      <div class="brand">
+        <span class="coin" aria-hidden="true">◉</span>
+        <div>
+          <h1>Titan Reliquary</h1>
+          <p class="sub" id="hdr-sub">Loading vault…</p>
+          <p class="live-status" id="live-status" aria-live="polite"></p>
+        </div>
+      </div>
+      <div class="chips" id="hdr-chips"></div>
+      <div class="hdr-actions">
+        <label class="auto-toggle" title="Auto-check for a newer snapshot">
+          <input type="checkbox" id="auto-refresh" checked />
+          <span>Auto</span>
+        </label>
+        <div class="badge hold" title="Policy">HOLD</div>
+      </div>
+    </header>
+
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-tab="board" role="tab">Board</button>
+      <button class="tab" data-tab="flips" role="tab">Flips</button>
+      <button class="tab" data-tab="bullion" role="tab">Bullion</button>
+      <button class="tab" data-tab="world" role="tab">World</button>
+      <button class="tab" data-tab="ops" role="tab">Ops</button>
+      <button class="tab" data-tab="age" role="tab">Albums / Age</button>
+    </nav>
+
+    <main>
+      <section id="pane-board" class="pane active"></section>
+      <section id="pane-flips" class="pane"></section>
+      <section id="pane-bullion" class="pane"></section>
+      <section id="pane-world" class="pane"></section>
+      <section id="pane-ops" class="pane"></section>
+      <section id="pane-age" class="pane"></section>
+    </main>
+
+    <aside id="drawer" class="drawer" hidden aria-label="Coin dossier">
+      <div class="drawer-inner" id="drawer-inner">
+        <div class="drawer-bar">
+          <button type="button" class="nav-btn" id="dossier-prev" aria-label="Previous flip" title="Previous (←)">‹</button>
+          <button type="button" class="nav-btn" id="dossier-next" aria-label="Next flip" title="Next (→)">›</button>
+          <span class="drawer-pos" id="dossier-pos"></span>
+          <button type="button" class="drawer-close" id="drawer-close" aria-label="Close" title="Close (Esc)">×</button>
+        </div>
+        <div id="drawer-body"></div>
+      </div>
+    </aside>
+    <div id="lightbox" class="lightbox" hidden role="dialog" aria-modal="true" aria-label="Photo viewer">
+      <button type="button" class="lb-close" id="lb-close" aria-label="Close">×</button>
+      <button type="button" class="lb-nav lb-prev" id="lb-prev" aria-label="Other side">‹</button>
+      <figure class="lb-fig">
+        <img id="lb-img" alt="" />
+        <figcaption id="lb-cap"></figcaption>
+      </figure>
+      <button type="button" class="lb-nav lb-next" id="lb-next" aria-label="Other side">›</button>
+    </div>
+    <div id="drawer-backdrop" class="backdrop" hidden></div>
+
+    <div id="toast" class="toast" hidden role="status" aria-live="polite"></div>
+
+    <footer class="foot">
+      <span id="foot-path">Local vault</span>
+      <button type="button" id="btn-refresh" class="btn">↻ Refresh</button>
+    </footer>
+  </div>
+  <script>window.TITAN_BUILD = "ce9ece4795560e9e";</script>
+  <script src="app.js?v=ce9ece4795560e9e"></script>
+</body>
+</html>

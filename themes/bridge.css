@@ -1,0 +1,207 @@
+/* ============ STARSHIP BRIDGE ============
+   near-black navy · cyan/teal glow · fine line grid · clipped panel corners · monospace telemetry */
+html[data-theme="bridge"] {
+  --bg: #04070d;
+  --bg2: #07101c;
+  --bg3: #0c1a2b;
+  --panel: #081322;
+  --border: #173450;
+  --gold: #3ee6ff;
+  --gold-soft: #a6f5ff;
+  --gold-dim: #2a93ad;
+  --teal: #22d3b4;
+  --text: #dcedf7;
+  --muted: #8fb0c4;
+  --ok: #3ef2a0;
+  --warn: #ffbf5a;
+  --danger: #ff6b81;
+  --chip: #0a1828;
+  --row-hover: #0d2236;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+  --radius: 2px;
+  --font: "Space Grotesk", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+  --disp: "Oxanium", "Space Grotesk", sans-serif;
+  --cut: 14px;
+}
+html[data-theme="bridge"] body {
+  background:
+    linear-gradient(rgba(62, 230, 255, 0.045) 1px, transparent 1px) 0 0 / 32px 32px,
+    linear-gradient(90deg, rgba(62, 230, 255, 0.045) 1px, transparent 1px) 0 0 / 32px 32px,
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(34, 211, 180, 0.16), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(62, 230, 255, 0.08), transparent 70%),
+    var(--bg);
+  background-attachment: fixed;
+  letter-spacing: 0.005em;
+}
+/* scanlines + grain */
+html[data-theme="bridge"] body::after {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 70;
+  background:
+    repeating-linear-gradient(0deg, rgba(166, 245, 255, 0.028) 0 1px, transparent 1px 3px),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");
+  mix-blend-mode: screen;
+}
+html[data-theme="bridge"] .top { border-bottom: 1px solid var(--border); position: relative; }
+html[data-theme="bridge"] .top::after {
+  content: ""; position: absolute; left: 0; bottom: -1px; width: 180px; height: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent); box-shadow: 0 0 12px var(--gold);
+}
+html[data-theme="bridge"] .brand h1 {
+  font-family: var(--disp); text-transform: uppercase; letter-spacing: 0.16em; font-weight: 700;
+  color: var(--gold-soft); text-shadow: 0 0 18px rgba(62, 230, 255, 0.45); font-size: 1.35rem;
+}
+html[data-theme="bridge"] .brand .sub, html[data-theme="bridge"] .live-status { font-family: var(--mono); font-size: 0.74rem; }
+html[data-theme="bridge"] .live-status { color: var(--teal); }
+html[data-theme="bridge"] .coin { width: 42px; height: 42px; font-size: 0; margin-top: 0; }
+html[data-theme="bridge"] .coin svg { width: 42px; height: 42px; display: block; filter: drop-shadow(0 0 6px rgba(62, 230, 255, 0.6)); }
+html[data-theme="bridge"] .chip, html[data-theme="bridge"] .auto-toggle, html[data-theme="bridge"] .theme-btn {
+  border-radius: 0; font-family: var(--mono); font-size: 0.74rem; background: rgba(8, 19, 34, 0.9);
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+  border-color: #1f4a6b;
+}
+html[data-theme="bridge"] .chip strong { color: var(--gold-soft); }
+html[data-theme="bridge"] .badge.hold {
+  background: transparent; border: 1px solid var(--warn); color: var(--warn); border-radius: 0;
+  font-family: var(--mono); letter-spacing: 0.2em; box-shadow: 0 0 10px rgba(255, 191, 90, 0.25) inset;
+}
+/* telemetry strip (bridge.js) */
+html[data-theme="bridge"] .bridge-tele {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px;
+  margin: 0.85rem 0 0; background: var(--border); border: 1px solid var(--border);
+  font-family: var(--mono); font-size: 0.72rem;
+}
+html[data-theme="bridge"] .bridge-tele > div { background: rgba(6, 14, 26, 0.95); padding: 0.45rem 0.7rem; min-width: 0; }
+html[data-theme="bridge"] .bridge-tele b { display: block; color: var(--muted); font-weight: 400; font-size: 0.62rem; letter-spacing: 0.14em; }
+html[data-theme="bridge"] .bridge-tele span { color: var(--gold-soft); font-size: 0.86rem; white-space: nowrap; text-shadow: 0 0 8px rgba(62, 230, 255, 0.35); }
+html[data-theme="bridge"] .bridge-tele .ok { color: var(--ok); }
+html[data-theme="bridge"] .bridge-tele .blink { animation: brBlink 1.6s steps(2) infinite; }
+@keyframes brBlink { 50% { opacity: 0.25; } }
+/* tabs */
+html[data-theme="bridge"] .tabs { background: transparent; border: none; padding: 0; gap: 0.4rem; }
+html[data-theme="bridge"] .tab {
+  font-family: var(--disp); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.8rem; font-weight: 600;
+  border-radius: 0; background: rgba(8, 19, 34, 0.85); color: var(--muted);
+  clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+  padding: 0.6rem 1.35rem; border-bottom: 2px solid transparent;
+}
+html[data-theme="bridge"] .tab:hover { color: var(--gold-soft); background: rgba(13, 34, 54, 0.95); }
+html[data-theme="bridge"] .tab.active {
+  background: linear-gradient(180deg, rgba(62, 230, 255, 0.22), rgba(62, 230, 255, 0.06));
+  color: #e9fdff; box-shadow: none; border-bottom-color: var(--gold); text-shadow: 0 0 10px rgba(62, 230, 255, 0.7);
+}
+/* panels: clipped corners, gradient hairline border, system headers, corner bracket */
+html[data-theme="bridge"] main { counter-reset: sys; }
+html[data-theme="bridge"] .card, html[data-theme="bridge"] .world-panel {
+  position: relative; isolation: isolate; border: none; border-radius: 0; box-shadow: none;
+  background: linear-gradient(135deg, rgba(62, 230, 255, 0.75), #173450 22%, #173450 78%, rgba(34, 211, 180, 0.6));
+  clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
+  transition: background 0.25s, transform 0.25s;
+}
+html[data-theme="bridge"] .card::before, html[data-theme="bridge"] .world-panel::before {
+  content: ""; position: absolute; inset: 1px; z-index: -1;
+  background:
+    radial-gradient(ellipse 70% 60% at 0% 0%, rgba(62, 230, 255, 0.08), transparent 70%),
+    linear-gradient(180deg, #0a1728, #060f1b);
+  clip-path: polygon(calc(var(--cut) - 0.5px) 0, 100% 0, 100% calc(100% - var(--cut) + 0.5px), calc(100% - var(--cut) + 0.5px) 100%, 0 100%, 0 calc(var(--cut) - 0.5px));
+}
+html[data-theme="bridge"] .card::after {
+  content: ""; position: absolute; top: 7px; right: 7px; width: 12px; height: 12px;
+  border-top: 2px solid var(--gold); border-right: 2px solid var(--gold); opacity: 0.55;
+  transition: width 0.25s, height 0.25s, opacity 0.25s;
+}
+html[data-theme="bridge"] .card:hover::after { width: 22px; height: 22px; opacity: 1; }
+html[data-theme="bridge"] .card:hover {
+  background: linear-gradient(135deg, var(--gold), #1f4a6b 30%, #1f4a6b 70%, var(--teal));
+}
+html[data-theme="bridge"] .card h3 {
+  counter-increment: sys; font-family: var(--disp); color: var(--gold); letter-spacing: 0.18em; font-size: 0.72rem; font-weight: 600;
+}
+html[data-theme="bridge"] .card h3::before { content: "SYS." counter(sys, decimal-leading-zero) " // "; color: var(--muted); font-family: var(--mono); letter-spacing: 0.04em; }
+html[data-theme="bridge"] .card .val {
+  font-family: var(--disp); font-weight: 700; font-size: 1.85rem; color: #e9fdff; letter-spacing: 0.02em;
+  text-shadow: 0 0 16px rgba(62, 230, 255, 0.55);
+}
+html[data-theme="bridge"] .card .val .of { color: var(--muted); text-shadow: none; }
+html[data-theme="bridge"] .card .hint { color: var(--muted); font-size: 0.8rem; }
+html[data-theme="bridge"] .progress { border-radius: 0; height: 8px; background: #03101c; border-color: #1f4a6b; }
+html[data-theme="bridge"] .progress > span {
+  border-radius: 0; background: linear-gradient(90deg, var(--teal), var(--gold));
+  box-shadow: 0 0 10px var(--gold); position: relative; overflow: hidden; min-width: 3px;
+}
+html[data-theme="bridge"] .progress > span::after {
+  content: ""; position: absolute; inset: 0; width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  animation: brSweep 2.8s linear infinite;
+}
+@keyframes brSweep { from { transform: translateX(-100%); } to { transform: translateX(300%); } }
+html[data-theme="bridge"] .btn {
+  border-radius: 0; font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase;
+  background: rgba(62, 230, 255, 0.08); border: 1px solid var(--gold-dim); color: var(--gold-soft);
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+html[data-theme="bridge"] .btn:hover { background: rgba(62, 230, 255, 0.18); color: #fff; }
+/* latest adds */
+html[data-theme="bridge"] .latest-card {
+  border-radius: 0; background: rgba(6, 15, 27, 0.9); border: 1px solid #16334e;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+}
+html[data-theme="bridge"] .latest-card:hover { border-color: var(--gold); background: rgba(13, 34, 54, 0.95); box-shadow: inset 0 0 18px rgba(62, 230, 255, 0.18); }
+html[data-theme="bridge"] .latest-card .id { font-family: var(--mono); color: var(--gold-soft); font-weight: 600; }
+html[data-theme="bridge"] .latest-card .ser { font-family: var(--mono); color: var(--muted); }
+html[data-theme="bridge"] .latest-card .est { font-family: var(--mono); color: var(--teal); }
+html[data-theme="bridge"] .latest-card.is-new { box-shadow: inset 0 0 0 1px var(--ok), inset 0 0 20px rgba(62, 242, 160, 0.25); }
+/* requests as a comms log */
+html[data-theme="bridge"] .req { border-radius: 0; background: rgba(6, 15, 27, 0.85); border: 1px solid #14304a; border-left: 2px solid var(--gold-dim); }
+html[data-theme="bridge"] .req.link:hover { border-left-color: var(--gold); background: rgba(13, 34, 54, 0.95); }
+html[data-theme="bridge"] .req-ico { border-radius: 0; font-family: var(--mono); }
+html[data-theme="bridge"] .req-kind { font-family: var(--mono); color: var(--teal); letter-spacing: 0.1em; }
+html[data-theme="bridge"] .req-kind::before { content: "["; } html[data-theme="bridge"] .req-kind::after { content: "]"; }
+html[data-theme="bridge"] .req-count { color: var(--warn); font-family: var(--mono); }
+html[data-theme="bridge"] .bucket-row { border-bottom-color: rgba(23, 52, 80, 0.7); }
+html[data-theme="bridge"] .bucket-row .v { font-family: var(--mono); color: var(--gold-soft); }
+/* tables */
+html[data-theme="bridge"] .table-wrap {
+  border-radius: 0; background: linear-gradient(180deg, #081525, #050d18); border: 1px solid #1a3d5c;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+}
+html[data-theme="bridge"] table.data th { background: #071626; color: var(--gold); font-family: var(--mono); font-weight: 600; letter-spacing: 0.12em; font-size: 0.68rem; }
+html[data-theme="bridge"] table.data td { border-bottom-color: rgba(23, 52, 80, 0.55); }
+html[data-theme="bridge"] table.data tbody tr:hover { background: var(--row-hover); box-shadow: inset 2px 0 0 var(--gold); }
+html[data-theme="bridge"] td.ser-primary { font-family: var(--mono); color: var(--gold-soft); }
+html[data-theme="bridge"] .toolbar input, html[data-theme="bridge"] .toolbar select {
+  border-radius: 0; background: #06101c; border: 1px solid #1f4a6b; color: var(--text); font-family: var(--mono);
+}
+html[data-theme="bridge"] .toolbar input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold), 0 0 14px rgba(62, 230, 255, 0.35); }
+html[data-theme="bridge"] .country-chip { border-radius: 0; font-family: var(--mono); font-size: 0.74rem; background: #07121f; }
+html[data-theme="bridge"] .country-chip.active { background: rgba(62, 230, 255, 0.16); border-color: var(--gold); color: #fff; }
+html[data-theme="bridge"] #world-table tr.w-row.selected { background: rgba(62, 230, 255, 0.1); box-shadow: inset 3px 0 0 var(--gold); }
+/* drawer */
+html[data-theme="bridge"] .drawer-inner { background: linear-gradient(180deg, #06111e, #04090f); border-left: 1px solid var(--gold-dim); box-shadow: -10px 0 40px rgba(62, 230, 255, 0.08); }
+html[data-theme="bridge"] .drawer-bar { background: rgba(5, 12, 22, 0.95); border-bottom-color: var(--border); }
+html[data-theme="bridge"] .nav-btn, html[data-theme="bridge"] .drawer-close { border-radius: 0; background: #0a1a2b; color: var(--gold-soft); border: 1px solid #1f4a6b; }
+html[data-theme="bridge"] .ds-ser { font-family: var(--disp); letter-spacing: 0.08em; color: #e9fdff; text-shadow: 0 0 14px rgba(62, 230, 255, 0.5); }
+html[data-theme="bridge"] .ds-sec h4 { font-family: var(--mono); color: var(--gold); letter-spacing: 0.16em; text-transform: uppercase; font-size: 0.7rem; }
+html[data-theme="bridge"] .ds-sec h4::before { content: "▸ "; color: var(--teal); }
+html[data-theme="bridge"] .kv dt { font-family: var(--mono); font-size: 0.74rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+html[data-theme="bridge"] .notes-box { border-radius: 0; background: #050d17; border-color: #173450; }
+html[data-theme="bridge"] .ph-slot .ph-empty, html[data-theme="bridge"] .ph-open { border-radius: 0; }
+html[data-theme="bridge"] .ph-ring { border-color: var(--gold-dim); box-shadow: 0 0 18px rgba(62, 230, 255, 0.2); }
+html[data-theme="bridge"] .ph-await { color: var(--gold); font-family: var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
+html[data-theme="bridge"] .foot { background: rgba(4, 9, 16, 0.92); font-family: var(--mono); border-top-color: var(--border); }
+html[data-theme="bridge"] .toast { background: #06121f; border-color: var(--gold); color: var(--gold-soft); border-radius: 0; box-shadow: 0 0 20px rgba(62, 230, 255, 0.3); }
+html[data-theme="bridge"] .theme-pop { border-radius: 0; background: #06111e; }
+html[data-theme="bridge"] .tp-item { border-radius: 0; font-family: var(--mono); }
+html[data-theme="bridge"] .badge-status { border-radius: 0; font-family: var(--mono); }
+@media (max-width: 700px) {
+  html[data-theme="bridge"] { --cut: 10px; }
+  html[data-theme="bridge"] .tab { padding: 0.6rem 0.95rem; letter-spacing: 0.08em; font-size: 0.74rem; }
+  html[data-theme="bridge"] .card .val { font-size: 1.45rem; }
+  html[data-theme="bridge"] .bridge-tele { grid-template-columns: repeat(2, 1fr); }
+  html[data-theme="bridge"] .bridge-tele > div:nth-child(n+5) { display: none; }
+  html[data-theme="bridge"] .bridge-tele span { font-size: 0.74rem; }
+  html[data-theme="bridge"] .bridge-tele > div { padding: 0.4rem 0.55rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="bridge"] .progress > span::after, html[data-theme="bridge"] .bridge-tele .blink { animation: none; }
+}

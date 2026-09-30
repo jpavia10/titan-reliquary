@@ -1,0 +1,175 @@
+/* ============ TITAN ORBIT ============
+   deep-space gradient · starfield parallax (orbit.js) · Saturn-ring motif · amber haze + violet light · glass panels */
+html[data-theme="orbit"] {
+  --bg: #07061a;
+  --bg2: #0e0c2a;
+  --bg3: #17143d;
+  --panel: rgba(22, 18, 58, 0.55);
+  --border: rgba(167, 139, 250, 0.22);
+  --gold: #ffb35c;
+  --gold-soft: #ffd9a8;
+  --gold-dim: #c98a43;
+  --teal: #a78bfa;
+  --violet: #a78bfa;
+  --text: #f1ecff;
+  --muted: #b3aad6;
+  --ok: #7ef0c1;
+  --warn: #ffc46b;
+  --danger: #ff8aa0;
+  --chip: rgba(30, 24, 74, 0.55);
+  --row-hover: rgba(167, 139, 250, 0.12);
+  --shadow: 0 18px 50px rgba(3, 2, 14, 0.6);
+  --radius: 18px;
+  --font: "Exo 2", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+  --disp: "Orbitron", "Exo 2", sans-serif;
+  background:
+    radial-gradient(ellipse 70% 45% at 85% -5%, rgba(255, 150, 60, 0.22), transparent 65%),
+    radial-gradient(ellipse 60% 50% at 0% 30%, rgba(124, 92, 255, 0.18), transparent 70%),
+    radial-gradient(ellipse 90% 60% at 50% 110%, rgba(255, 120, 60, 0.12), transparent 70%),
+    linear-gradient(180deg, #0a0822 0%, #07061a 45%, #050414 100%);
+  background-attachment: fixed;
+  min-height: 100%;
+}
+html[data-theme="orbit"] body { background: transparent; }
+html[data-theme="orbit"] #orb-stars { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+html[data-theme="orbit"] .top { border-bottom: none; }
+html[data-theme="orbit"] .brand h1 {
+  font-family: var(--disp); font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; font-size: 1.3rem;
+  background: linear-gradient(90deg, #ffd9a8, #ffb35c 40%, #c9b6ff 100%); -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+html[data-theme="orbit"] .brand .sub { color: var(--muted); }
+html[data-theme="orbit"] .live-status { color: var(--ok); }
+html[data-theme="orbit"] .coin { width: 54px; height: 54px; font-size: 0; margin-top: -4px; background: none; border: none; box-shadow: none; }
+html[data-theme="orbit"] .coin svg { width: 54px; height: 54px; display: block; overflow: visible; filter: drop-shadow(0 0 10px rgba(255, 170, 80, 0.45)); }
+html[data-theme="orbit"] .chip, html[data-theme="orbit"] .auto-toggle, html[data-theme="orbit"] .theme-btn {
+  border-radius: 999px; background: rgba(30, 24, 74, 0.5); border: 1px solid rgba(167, 139, 250, 0.3);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+html[data-theme="orbit"] .chip strong { color: var(--gold-soft); font-family: var(--disp); font-weight: 600; font-size: 0.82em; letter-spacing: 0.04em; }
+html[data-theme="orbit"] .badge.hold {
+  border-radius: 999px; background: linear-gradient(90deg, rgba(255, 179, 92, 0.25), rgba(167, 139, 250, 0.25));
+  border: 1px solid rgba(255, 179, 92, 0.6); color: var(--gold-soft); font-family: var(--disp); letter-spacing: 0.2em; font-size: 0.72rem;
+}
+/* tabs: floating pill dock */
+html[data-theme="orbit"] .tabs {
+  background: rgba(20, 16, 52, 0.55); border: 1px solid rgba(167, 139, 250, 0.25); border-radius: 999px; padding: 0.3rem;
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: var(--shadow); width: fit-content; max-width: 100%;
+}
+html[data-theme="orbit"] .tab {
+  border-radius: 999px; font-family: var(--disp); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); background: transparent; padding: 0.55rem 1.1rem; font-weight: 600;
+}
+html[data-theme="orbit"] .tab:hover { color: var(--text); background: rgba(167, 139, 250, 0.12); }
+html[data-theme="orbit"] .tab.active {
+  color: #1a0f05; background: linear-gradient(135deg, #ffd29a, #ffb35c 55%, #ff9b4a);
+  box-shadow: 0 0 18px rgba(255, 170, 80, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+/* glass panels */
+html[data-theme="orbit"] .card, html[data-theme="orbit"] .table-wrap, html[data-theme="orbit"] .world-panel {
+  background: linear-gradient(160deg, rgba(40, 32, 96, 0.55), rgba(16, 13, 44, 0.62));
+  border: 1px solid rgba(167, 139, 250, 0.22); border-radius: var(--radius);
+  box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(14px) saturate(130%); -webkit-backdrop-filter: blur(14px) saturate(130%);
+  transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.3s, box-shadow 0.3s;
+}
+html[data-theme="orbit"] .card { position: relative; overflow: hidden; }
+html[data-theme="orbit"] .card::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
+  background: radial-gradient(circle at var(--mx, 80%) var(--my, -20%), rgba(255, 179, 92, 0.16), transparent 45%);
+  opacity: 0.8; transition: opacity 0.3s;
+}
+@media (hover: hover) {
+  html[data-theme="orbit"] #pane-board .grid > .card:hover { transform: translateY(-3px); border-color: rgba(255, 179, 92, 0.5); box-shadow: var(--shadow), 0 0 28px rgba(255, 170, 80, 0.18); }
+}
+html[data-theme="orbit"] .card h3 { font-family: var(--disp); color: var(--gold); font-size: 0.7rem; letter-spacing: 0.2em; font-weight: 600; }
+html[data-theme="orbit"] .card .val { font-family: var(--disp); font-weight: 700; font-size: 1.5rem; white-space: nowrap; letter-spacing: 0.03em; color: #fff; text-shadow: 0 0 22px rgba(167, 139, 250, 0.45); }
+html[data-theme="orbit"] .card .val .of { font-family: var(--font); color: var(--muted); text-shadow: none; }
+html[data-theme="orbit"] .card .hint { color: var(--muted); }
+html[data-theme="orbit"] #pane-board.active { display: flex; flex-direction: column; }
+html[data-theme="orbit"] #pane-board > .orb-stats { order: -1; }
+html[data-theme="orbit"] #pane-board > * { margin-top: 0; }
+/* Saturn progress rings (orbit.js) */
+html[data-theme="orbit"] #pane-board > .orb-stats { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); grid-auto-flow: dense; }
+html[data-theme="orbit"] .card.has-ring { padding-right: 128px; min-height: 132px; grid-column: span 2; }
+html[data-theme="orbit"] .card.has-ring .progress-wrap { display: none; }
+html[data-theme="orbit"] .orb-ring { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); width: 100px; height: 100px; }
+html[data-theme="orbit"] .orb-ring svg { width: 100%; height: 100%; overflow: visible; }
+html[data-theme="orbit"] .orb-ring .arc { transition: stroke-dashoffset 1.6s cubic-bezier(0.2, 0.7, 0.2, 1); }
+html[data-theme="orbit"] .orb-ring .pct { font-family: var(--disp); font-size: 15px; font-weight: 700; fill: #fff; }
+html[data-theme="orbit"] .orb-ring .lbl { font-family: var(--disp); font-size: 6.5px; letter-spacing: 1.4px; fill: var(--muted); }
+html[data-theme="orbit"] .progress { border-radius: 999px; background: rgba(10, 8, 30, 0.7); border-color: rgba(167, 139, 250, 0.25); }
+html[data-theme="orbit"] .progress > span { border-radius: 999px; background: linear-gradient(90deg, var(--violet), var(--gold)); box-shadow: 0 0 12px rgba(255, 170, 80, 0.5); }
+html[data-theme="orbit"] .btn {
+  border-radius: 999px; background: rgba(167, 139, 250, 0.14); border: 1px solid rgba(167, 139, 250, 0.4); color: var(--text); font-weight: 600;
+}
+html[data-theme="orbit"] .btn:hover { background: rgba(255, 179, 92, 0.2); border-color: var(--gold); color: #fff; }
+/* latest adds: floating glass tiles with orbit glow */
+html[data-theme="orbit"] .latest-card {
+  border-radius: 14px; background: linear-gradient(160deg, rgba(50, 40, 110, 0.5), rgba(20, 16, 50, 0.6));
+  border: 1px solid rgba(167, 139, 250, 0.2); transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+html[data-theme="orbit"] .latest-card:hover { transform: translateY(-3px); border-color: rgba(255, 179, 92, 0.6); box-shadow: 0 10px 26px rgba(255, 150, 60, 0.18); }
+html[data-theme="orbit"] .latest-card .id { font-family: var(--font); font-weight: 700; font-size: 0.9rem; letter-spacing: 0.05em; color: var(--gold-soft); }
+html[data-theme="orbit"] .latest-card .ser { color: var(--muted); font-family: var(--mono); }
+html[data-theme="orbit"] .latest-card .est { color: var(--gold); font-weight: 600; }
+html[data-theme="orbit"] .latest-card.is-new { border-color: var(--ok); box-shadow: 0 0 18px rgba(126, 240, 193, 0.3); }
+/* requests: transmissions */
+html[data-theme="orbit"] .req { border-radius: 12px; background: rgba(20, 16, 52, 0.55); border: 1px solid rgba(167, 139, 250, 0.18); }
+html[data-theme="orbit"] .req.link:hover { border-color: rgba(255, 179, 92, 0.55); background: rgba(40, 30, 90, 0.6); }
+html[data-theme="orbit"] .req-ico { border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ffd29a, #c46a2a); color: #1a0f05; border: none; }
+html[data-theme="orbit"] .req-kind { color: var(--violet); font-family: var(--disp); font-size: 0.64rem; letter-spacing: 0.14em; }
+html[data-theme="orbit"] .req-count { color: var(--gold); }
+html[data-theme="orbit"] .bucket-row { border-bottom-color: rgba(167, 139, 250, 0.14); }
+html[data-theme="orbit"] .bucket-row .v { color: var(--gold-soft); font-family: var(--mono); }
+/* tables */
+html[data-theme="orbit"] .table-wrap { overflow: auto; }
+html[data-theme="orbit"] table.data th { background: rgba(24, 19, 62, 0.92); color: var(--gold); font-family: var(--disp); font-size: 0.62rem; letter-spacing: 0.16em; font-weight: 600; }
+html[data-theme="orbit"] table.data td { border-bottom-color: rgba(167, 139, 250, 0.12); }
+html[data-theme="orbit"] table.data tbody tr:hover { background: var(--row-hover); }
+html[data-theme="orbit"] td.ser-primary { color: var(--gold-soft); font-family: var(--mono); }
+html[data-theme="orbit"] .toolbar input, html[data-theme="orbit"] .toolbar select {
+  border-radius: 999px; background: rgba(20, 16, 52, 0.6); border: 1px solid rgba(167, 139, 250, 0.3); color: var(--text);
+}
+html[data-theme="orbit"] .toolbar input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(255, 179, 92, 0.2); }
+html[data-theme="orbit"] .country-chip { border-radius: 999px; background: rgba(30, 24, 74, 0.5); border-color: rgba(167, 139, 250, 0.25); }
+html[data-theme="orbit"] .country-chip.active { background: rgba(255, 179, 92, 0.22); border-color: var(--gold); color: #fff; }
+html[data-theme="orbit"] #world-table tr.w-row.selected { background: rgba(255, 179, 92, 0.12); box-shadow: inset 3px 0 0 var(--gold); }
+/* orbital map (orbit.js) */
+html[data-theme="orbit"] .orb-map { padding: 0.9rem 1rem 0.8rem; margin-bottom: 0.9rem; }
+html[data-theme="orbit"] .orb-map canvas { display: block; width: 100%; height: 400px; touch-action: none; cursor: grab; }
+html[data-theme="orbit"] .orb-map canvas:active { cursor: grabbing; }
+html[data-theme="orbit"] .orb-map .orb-legend { display: flex; flex-wrap: wrap; gap: 0.35rem 1rem; justify-content: space-between; font-size: 0.78rem; color: var(--muted); margin-top: 0.35rem; }
+html[data-theme="orbit"] .orb-map .orb-legend b { color: var(--gold-soft); font-weight: 600; }
+/* drawer */
+html[data-theme="orbit"] .drawer-inner { background: linear-gradient(170deg, rgba(26, 20, 66, 0.97), rgba(8, 7, 24, 0.98)); border-left: 1px solid rgba(167, 139, 250, 0.3); }
+html[data-theme="orbit"] .drawer-bar { background: rgba(16, 13, 44, 0.9); border-bottom-color: rgba(167, 139, 250, 0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+html[data-theme="orbit"] .nav-btn, html[data-theme="orbit"] .drawer-close { border-radius: 50%; background: rgba(167, 139, 250, 0.14); border: 1px solid rgba(167, 139, 250, 0.35); color: var(--text); }
+html[data-theme="orbit"] .ds-ser { font-family: var(--disp); letter-spacing: 0.06em; background: linear-gradient(90deg, #ffd9a8, #ffb35c 50%, #c9b6ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+html[data-theme="orbit"] .ds-sec h4 { font-family: var(--disp); color: var(--gold); font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; }
+html[data-theme="orbit"] .kv dt { color: var(--muted); }
+html[data-theme="orbit"] .notes-box { border-radius: 12px; background: rgba(12, 10, 34, 0.7); border-color: rgba(167, 139, 250, 0.2); }
+html[data-theme="orbit"] .ph-slot .ph-empty, html[data-theme="orbit"] .ph-open { border-radius: 16px; }
+html[data-theme="orbit"] .ph-ring { border-color: rgba(255, 179, 92, 0.6); box-shadow: 0 0 22px rgba(255, 170, 80, 0.25); }
+html[data-theme="orbit"] .ph-await { color: var(--gold); }
+html[data-theme="orbit"] .foot { background: rgba(10, 8, 30, 0.75); border-top-color: rgba(167, 139, 250, 0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+html[data-theme="orbit"] .toast { border-radius: 999px; background: rgba(30, 24, 74, 0.95); border-color: var(--gold); color: var(--gold-soft); }
+html[data-theme="orbit"] .theme-pop { background: rgba(20, 16, 52, 0.96); border-radius: 16px; }
+html[data-theme="orbit"] .badge-status { border-radius: 999px; }
+/* phones: lighter glass (no backdrop blur on the many panels) for older iPhones */
+@media (max-width: 700px) {
+  html[data-theme="orbit"] .card, html[data-theme="orbit"] .table-wrap, html[data-theme="orbit"] .world-panel, html[data-theme="orbit"] .chip {
+    backdrop-filter: none; -webkit-backdrop-filter: none; background: linear-gradient(160deg, rgba(36, 29, 88, 0.9), rgba(16, 13, 44, 0.92));
+  }
+  html[data-theme="orbit"] .tabs { border-radius: 18px; width: auto; }
+  html[data-theme="orbit"] .tab { padding: 0.5rem 0.8rem; font-size: 0.66rem; letter-spacing: 0.08em; }
+  html[data-theme="orbit"] .card .val { font-size: 1.15rem; }
+  html[data-theme="orbit"] .card.has-ring { padding-right: 100px; grid-column: 1 / -1; }
+  html[data-theme="orbit"] #pane-board > .orb-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  html[data-theme="orbit"] .orb-ring { width: 84px; height: 84px; right: 8px; }
+  html[data-theme="orbit"] .orb-map canvas { height: 320px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="orbit"] .orb-ring .arc { transition: none; }
+  html[data-theme="orbit"] .card, html[data-theme="orbit"] .latest-card { transition: none; }
+}
